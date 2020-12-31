@@ -93,7 +93,7 @@ class Logger {
                     this.ctx.fillStyle = 'red';
                     break;
             }
-            this.ctx.fillText(message, 10, 32 + c * this.logHeight);
+            this.ctx.fillText(message, 10, this.logHeight + c * this.logHeight);
         }
     }
 
