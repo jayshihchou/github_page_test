@@ -26,5 +26,7 @@ var main = function () {
         requestAnimationFrame(frame);
     }
 
+    console.log("v3112200308");
+
     requestAnimationFrame(frame);
 }
