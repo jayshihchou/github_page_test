@@ -17,11 +17,11 @@ class Logger {
         this.canvas.width = 800;
         this.canvas.height = 800;
         if (isMobile) {
+            this.ctx.font = "40px Arial";
+            this.logHeight = 40 + 10;
+        } else {
             this.ctx.font = "60px Arial";
             this.logHeight = 60 + 10;
-        } else {
-            this.ctx.font = "30px Arial";
-            this.logHeight = 30 + 5;
         }
 
         this.logs = [];
@@ -64,14 +64,15 @@ class Logger {
         };
 
         this.logIndex = 0;
-        this.logMax = 30;
+        this.logMax = 10;
         this.enabled = true;
     }
 
     setLog(logType, message) {
-        this.logs[this.logIndex++] = { logType: logType, message: message };
-        if (this.logIndex === this.logMax)
-            this.logIndex = 0;
+        this.logs.unshift({ logType: logType, message: message });
+        if (this.logs.length > this.logMax) {
+            this.logs = this.logs.slice(0, this.logMax);
+        }
         this.drawLogs();
     }
 
@@ -103,6 +104,23 @@ class Logger {
             if (!this.enabled) {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             }
+        }
+    }
+
+    resize(width, height) {
+        this.canvas.width = width;
+        this.canvas.height = height;
+        if (isMobile) {
+            this.ctx.font = "40px Arial";
+            this.logHeight = 40 + 10;
+        } else {
+            this.ctx.font = "60px Arial";
+            this.logHeight = 60 + 10;
+        }
+        this.logMax = parseInt(this.canvas.height / (this.logHeight)) - 1;
+        this.logMax = Math.max(1, this.logMax);
+        if (this.logs.length > this.logMax) {
+            this.logs = this.logs.slice(0, this.logMax);
         }
     }
 }

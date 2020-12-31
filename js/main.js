@@ -35,6 +35,7 @@ var main = function () {
         if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
             canvas.width = displayWidth;
             canvas.height = displayHeight;
+            logger.resize(displayWidth, displayHeight);
             console.log("re screen size : " + canvas.width + ", " + canvas.height);
             return true;
         }
